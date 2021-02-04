@@ -1,0 +1,14 @@
+{
+    "name": "pxlucasf/musicwrap-api",
+    "description": "API do musicwrap",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Lucas Fernandes",
+            "email": "hi@lucasfernandes.com.br"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0"
+    }
+}

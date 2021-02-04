@@ -1,0 +1,147 @@
+<div class="image-inner">
+  <h1 class="title">Mais ouvidas da semana</h1>
+  <h2 class="subtitle"><b>{{playcount}}</b> músicas ouvidas</h2>
+  <img class="avatar" src="{{avatar}}">
+  <div class="top">
+    <div class="top-item">
+      <img src="{{tracks.0.cover}}">
+      <h1 class="top-item-title">{{tracks.0.title}}</h1>
+      <h2 class="top-item-subtitle">{{tracks.0.artist}}</h2>
+    </div>
+    <div class="top-item">
+      <img src="{{tracks.1.cover}}">
+      <h1 class="top-item-title">{{tracks.1.title}}</h1>
+      <h2 class="top-item-subtitle">{{tracks.1.artist}}</h2>
+    </div>
+  </div>
+  <div class="top">
+    <div class="top-item">
+      <img src="{{tracks.2.cover}}">
+      <h1 class="top-item-title">{{tracks.2.title}}</h1>
+      <h2 class="top-item-subtitle">{{tracks.2.artist}}</h2>
+    </div>
+    <div class="top-item">
+      <img src="{{tracks.3.cover}}">
+      <h1 class="top-item-title">{{tracks.3.title}}</h1>
+      <h2 class="top-item-subtitle">{{tracks.3.artist}}</h2>
+    </div>
+  </div>
+</div>
+<div class="background-overlay"></div>
+<div class="image-background">
+  <img src="{{avatar}}" class="blur">
+</div>
+<div class="watermark">musicwrap.xyz</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap');
+
+  #image .image-background {
+    height: 100%;
+  }
+
+  #image .image-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  #image .image-background img {
+    min-height: 100%;
+    max-width: none;
+    transform: scale(1.05);
+  }
+
+  #image .image-background canvas {
+    height: 100% !important;
+    width: auto !important;
+  }
+
+  #image .image-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+  }
+
+  #image .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .8);
+    z-index: 10;
+  }
+
+  #image .avatar {
+    height: 16rem;
+    width: 16rem;
+    border-radius: 50%;
+    margin: 2rem auto;
+  }
+
+  #image .title,
+  #image .subtitle {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: -.5px;
+    text-align: center;
+  }
+
+  #image .subtitle {
+    font-size: 2rem;
+    opacity: .75;
+  }
+
+  #image .top {
+    display: flex;
+    padding: 0 2rem;
+  }
+
+  #image .top + .top {
+    margin-top: 2rem;
+  }
+
+  #image .top-item {
+    width: calc(50% - 1rem);
+    text-align: center;
+  }
+
+  #image .top-item:first-child {
+    margin-right: 2rem;
+  }
+
+  #image .top-item img {
+    width: 16rem;
+    margin-bottom: .5rem;
+    border-radius: .5rem;
+  }
+
+  #image .top-item-title {
+    font-size: 1.75rem;
+  }
+
+  #image .top-item-subtitle {
+    font-size: 1.25rem;
+    opacity: .75;
+  }
+
+  #image .watermark {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    text-align: center;
+    opacity: .25;
+    z-index: 1000;
+  }
+</style>
