@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer-core');
 const handlebars = require('handlebars');
 const cheerio = require('cheerio');
 const fs = require('fs');
+const createError = require('http-errors');
 const fetchData = require('../../utils/fetchData');
 
 module.exports = async function routes (fastify, options) {
@@ -11,6 +12,11 @@ module.exports = async function routes (fastify, options) {
 
     const template = handlebars.compile(theme);
     const data = await fetchData(request.query.user);
+
+    if (data.error) {
+      reply.send(createError(500, data.error));
+      return;
+    }
 
     const $ = cheerio.load(layout);
     $('body').html(template(data));

@@ -7,12 +7,16 @@ module.exports = async (lastfm_user) => {
     user: lastfm_user,
   });
 
+  if (user_info.response.data.error) return { error: `Last.fm error: ${user_info.response.data.message}` };
+
   const top_tracks = await lastfm({
     method: 'user.gettoptracks',
     user: lastfm_user,
     period: '7day',
     limit: 4
   });
+
+  if (top_tracks.response.data.error) return { error: `Last.fm error: ${top_tracks.response.data.message}` };
 
   const data = {
     user_info: user_info.data.user,
