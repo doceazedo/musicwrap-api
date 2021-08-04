@@ -1,3 +1,7 @@
+<div>
+  <img src="{{user_info.image}}" alt="">
+</div>
+
 <main>
   <h1>Mais ouvidas da semana</h1>
   <h2><b>{{top_tracks.attr.total}}</b> músicas ouvidas</h2>
@@ -5,26 +9,13 @@
   <div style="background-image:url('{{user_info.image}}')"></div>
 
   <ul>
-    <li>
-      <div style="background-image:url('{{tracks.0.covert}}')"></div>
-      <h1>{{tracks.0.title}}</h1>
-      <h2>{{tracks.0.artist}}</h2>
-    </li>
-    <li>
-      <div style="background-image:url('{{tracks.1.covert}}')"></div>
-      <h1>{{tracks.1.title}}</h1>
-      <h2>{{tracks.1.artist}}</h2>
-    </li>
-    <li>
-      <div style="background-image:url('{{tracks.2.covert}}')"></div>
-      <h1>{{tracks.2.title}}</h1>
-      <h2>{{tracks.2.artist}}</h2>
-    </li>
-    <li>
-      <div style="background-image:url('{{tracks.3.covert}}')"></div>
-      <h1>{{tracks.3.title}}</h1>
-      <h2>{{tracks.3.artist}}</h2>
-    </li>
+    {{#each top_tracks.track}}
+      <li>
+        <div style="background-image:url('{{image}}')"></div>
+        <h1>{{name}}</h1>
+        <h2>{{artist.name}}</h2>
+      </li>
+    {{/each}}
   </ul>
 
   <footer>
@@ -39,118 +30,133 @@
 
 <style>
 
-body {
-  font-family: 'Sen', sans-serif;
-  color: #fff;
-  background-color: #363636;
-  background-image: url('{{user_info.image}}');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+  body {
+    font-family: 'Sen', sans-serif;
+    color: #fff;
+    background-color: #363636;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
-main {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding-top: 10rem;
-  background-color: rgba(0, 0, 0, .8);
-  backdrop-filter: blur(4rem);
-}
+  body > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
 
-main > h1,
-main > h2 {
-  text-align: center;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-main > h1 {
-  font-size: 4rem;
-  font-weight: 700;
-}
-
-main > h2 {
-  font-size: 3rem;
-  opacity: .75;
-}
-
-main > div {
-  flex-shrink: 0;
-  width: 20rem;
-  height: 20rem;
-  background-color: #efefef;
-  background-image: url('');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 50%;
-  margin: 3rem auto
-}
-
-main > ul {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 4rem;
-  grid-row-gap: 4rem;
-  width: fit-content;
-  margin: 0 auto;
-}
-
-main > ul li {
-  width: 24rem;
-}
-
-main > ul li div {
-  height: 24rem;
-  width: 24rem;
-  background-color: #efefef;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 1rem;
-  margin-bottom: 1rem;
-}
-
-main > ul li h1,
-main > ul li h2 {
-  text-align: center;
-  line-height: 1;
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-}
-
-main > ul li h1 {
-  font-size: 3rem;
-  margin-bottom: .5rem;
-  -webkit-line-clamp: 2;
-}
-
-main > ul li h2 {
-  font-size: 2rem;
-  letter-spacing: 1px;
-  -webkit-line-clamp: 1;
-}
-
-main > footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1;
-  margin-top: auto;
-  margin-bottom: 1.5rem;
-  font-size: 2.5rem;
-  opacity: .75;
-}
-
-main > footer svg {
-  height: 3rem;
-  margin-right: 1rem;
-}
+  body > div img {
+    height: 100%;
+    width: auto;
+    max-width: unset;
+    filter: blur(2rem);
+    transform: scale(1.1);
+  }
+  
+  main {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding-top: 10rem;
+    background-color: rgba(0, 0, 0, .8);
+  }
+  
+  main > h1,
+  main > h2 {
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  
+  main > h1 {
+    font-size: 4rem;
+    font-weight: 700;
+  }
+  
+  main > h2 {
+    font-size: 3rem;
+    opacity: .75;
+  }
+  
+  main > div {
+    flex-shrink: 0;
+    width: 20rem;
+    height: 20rem;
+    background-color: #efefef;
+    background-image: url('');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    margin: 3rem auto
+  }
+  
+  main > ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 4rem;
+    grid-row-gap: 4rem;
+    width: fit-content;
+    margin: 0 auto;
+  }
+  
+  main > ul li {
+    width: 24rem;
+  }
+  
+  main > ul li div {
+    height: 24rem;
+    width: 24rem;
+    background-color: #efefef;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  main > ul li h1,
+  main > ul li h2 {
+    text-align: center;
+    line-height: 1;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+  
+  main > ul li h1 {
+    font-size: 2.5rem;
+    margin-bottom: .5rem;
+    -webkit-line-clamp: 2;
+  }
+  
+  main > ul li h2 {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    -webkit-line-clamp: 1;
+  }
+  
+  main > footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1;
+    margin-top: auto;
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    opacity: .75;
+  }
+  
+  main > footer svg {
+    height: 3rem;
+    margin-right: 1rem;
+  }
 
 </style>
