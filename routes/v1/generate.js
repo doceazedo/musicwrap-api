@@ -1,4 +1,4 @@
-const { webkit } = require('playwright');
+const puppeteer = require('puppeteer-core');
 
 const cheerio = require('cheerio');
 const fs = require('fs');
@@ -29,13 +29,16 @@ module.exports = async function routes (fastify, options) {
     const $ = cheerio.load(layout);
     $('body').html(theme);
 
-    const browser = await webkit.launch();
-    const context = await browser.newContext({
-      viewport: { width: 1080, height: 1920 }
+    const browser = await puppeteer.launch({
+      executablePath: './bin/chrome-win/chrome.exe',
+      headless: true
     });
-    const page = await context.newPage();
+    const page = await browser.newPage();
+    await page.setViewport({ width: 1080, height: 1920 });
+    
     await page.setContent($.html());
-    await page.screenshot({ path: `example.png` });
+    await page.screenshot({ path: 'example.png' });
+  
     await browser.close();
 
     return { hello: request.query };

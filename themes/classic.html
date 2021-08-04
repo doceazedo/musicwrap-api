@@ -33,9 +33,11 @@
   </footer>
 </main>
 
-<style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap">
 
-@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap');
+<style>
 
 body {
   font-family: 'Sen', sans-serif;
@@ -53,8 +55,7 @@ main {
   width: 100%;
   padding-top: 10rem;
   background-color: rgba(0, 0, 0, .8);
-  backdrop-filter: blur(64px);
-  -webkit-backdrop-filter: blur(64px);
+  backdrop-filter: blur(4rem);
 }
 
 main > h1,
@@ -116,22 +117,23 @@ main > ul li h1,
 main > ul li h2 {
   text-align: center;
   line-height: 1;
-
+  word-break: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 
 main > ul li h1 {
   font-size: 3rem;
   margin-bottom: .5rem;
+  -webkit-line-clamp: 2;
 }
 
 main > ul li h2 {
   font-size: 2rem;
   letter-spacing: 1px;
+  -webkit-line-clamp: 1;
 }
 
 main > footer {
