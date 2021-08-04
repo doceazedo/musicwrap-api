@@ -1,8 +1,8 @@
 <main>
   <h1>Mais ouvidas da semana</h1>
-  <h2><b>{{user.playcount}}</b> músicas ouvidas</h2>
+  <h2><b>{{top_tracks.attr.total}}</b> músicas ouvidas</h2>
 
-  <div style="background-image:url('{{user.avatar}}')"></div>
+  <div style="background-image:url('{{user_info.image}}')"></div>
 
   <ul>
     <li>
@@ -43,7 +43,7 @@ body {
   font-family: 'Sen', sans-serif;
   color: #fff;
   background-color: #363636;
-  background-image: url('{{user.avatar}}');
+  background-image: url('{{user_info.image}}');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
