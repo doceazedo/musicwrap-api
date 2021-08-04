@@ -2,47 +2,15 @@ const puppeteer = require('puppeteer-core');
 const handlebars = require('handlebars');
 const cheerio = require('cheerio');
 const fs = require('fs');
-const lastfm = require('../../utils/lastfm');
-const deezer = require('../../utils/deezer');
+const fetchData = require('../../utils/fetchData');
 
 module.exports = async function routes (fastify, options) {
   fastify.get('/generate', async (request, reply) => {
     const layout = fs.readFileSync('./themes/_layout.html').toString();
     let theme = fs.readFileSync('./themes/classic.handlebars').toString();
 
-    const user_info = await lastfm({
-      method: 'user.getinfo',
-      user: request.query.user,
-    });
-
-    const top_tracks = await lastfm({
-      method: 'user.gettoptracks',
-      user: request.query.user,
-      period: '7day',
-      limit: 4
-    });
-
     const template = handlebars.compile(theme);
-    const data = {
-      user_info: user_info.data.user,
-      top_tracks: top_tracks.data.toptracks
-    };
-
-    // patch some shit
-    data.user_info.image = user_info.data.user.image[user_info.data.user.image.length - 1]['#text'];
-    data.user_info.registered = user_info.data.user.registered.unixtime;
-    data.top_tracks.attr = top_tracks.data.toptracks['@attr'];
-
-    for (const i in data.top_tracks.track) {
-      const trackName = data.top_tracks.track[i].name;
-      const artistName = data.top_tracks.track[i].artist.name;
-
-      const search = await deezer('search', {
-        q: `${artistName} ${trackName}`
-      });
-
-      data.top_tracks.track[i].image = search.data.data[0].album.cover_big;
-    }
+    const data = await fetchData(request.query.user);
 
     const $ = cheerio.load(layout);
     $('body').html(template(data));
@@ -54,7 +22,7 @@ module.exports = async function routes (fastify, options) {
     const page = await browser.newPage();
     await page.setViewport({ width: 1080, height: 1920 });
     await page.setContent($.html());
-    const image = await page.screenshot({ path: 'example.png' });
+    const image = await page.screenshot();
   
     await browser.close();
 
