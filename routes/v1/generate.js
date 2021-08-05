@@ -5,8 +5,26 @@ const fs = require('fs');
 const createError = require('http-errors');
 const fetchData = require('../../utils/fetchData');
 
-module.exports = async function routes (fastify, options) {
-  fastify.get('/generate', async (request, reply) => {
+module.exports = async function (fastify, options) {
+  const schema = {
+    querystring: {
+      type: 'object',
+      required: ['user', 'theme'],
+      properties: {
+        user:  { type: 'string' },
+        theme: { type: 'string' },
+      },
+    }
+  };
+
+  fastify.get('/generate', { schema }, async (request, reply) => {
+    const themePath = `./themes/${request.query.theme}.handlebars`;
+
+    if (!fs.existsSync(themePath)) {
+      reply.send(createError(400, 'The specified theme doesn\'t exist'));
+      return;
+    }
+
     const layout = fs.readFileSync('./themes/_layout.html').toString();
     let theme = fs.readFileSync('./themes/classic.handlebars').toString();
 
