@@ -1,25 +1,22 @@
 const fastify = require('fastify')({
   logger: true
 });
-const { resolve } = require('path');
-const { readdir } = require('fs').promises;
-
-async function* getFiles(dir) {
-  const dirents = await readdir(dir, { withFileTypes: true });
-  for (const dirent of dirents) {
-    const res = resolve(dir, dirent.name);
-    if (dirent.isDirectory()) {
-      yield* getFiles(res);
-    } else {
-      yield res;
-    }
-  }
-}
+const getFiles = require('./utils/getFiles');
 
 (async () => {
   for await (const file of getFiles('./routes')) {
-    if (!file.endsWith('.js')) return;
+    if (!file.endsWith('.js')) continue;
     fastify.register(require(file), { prefix: '/v1' });
+  }
+
+  global.themes = [];
+  for await (const file of getFiles('./themes')) {
+    let theme = file.replace(/\\/g, '/').split('/');
+    theme = theme[theme.length - 1];
+
+    if (theme.startsWith('_')) continue;
+    theme = theme.split('.')[0];
+    global.themes.push(theme);
   }
 
   try {

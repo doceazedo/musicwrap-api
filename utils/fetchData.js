@@ -7,8 +7,6 @@ module.exports = async (lastfm_user) => {
     user: lastfm_user,
   });
 
-  console.log(user_info);
-
   if (user_info.isAxiosError) return { error: `Last.fm error: ${user_info.response.data.message}` };
 
   const top_tracks = await lastfm({
