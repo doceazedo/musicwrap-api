@@ -4,6 +4,8 @@ const fastify = require('fastify')({
 const getFiles = require('./utils/getFiles');
 
 (async () => {
+  fastify.register(require('fastify-cors'), { origin: "*" });
+
   for await (const file of getFiles('./routes')) {
     if (!file.endsWith('.js')) continue;
     fastify.register(require(file), { prefix: '/v1' });
