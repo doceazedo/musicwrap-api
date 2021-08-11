@@ -9,9 +9,9 @@ module.exports = async function (fastify, options) {
   const schema = {
     querystring: {
       type: 'object',
-      required: ['user', 'theme'],
+      required: ['username', 'theme'],
       properties: {
-        user:  { type: 'string' },
+        username:  { type: 'string' },
         theme: { type: 'string' },
       },
     }
@@ -29,7 +29,7 @@ module.exports = async function (fastify, options) {
     let theme = fs.readFileSync('./themes/classic.handlebars').toString();
 
     const template = handlebars.compile(theme);
-    const data = await fetchData(request.query.user);
+    const data = await fetchData(request.query.username);
 
     if (data.error) {
       reply.send(createError(500, data.error));
