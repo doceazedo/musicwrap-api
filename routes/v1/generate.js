@@ -39,10 +39,24 @@ module.exports = async function (fastify, options) {
     const $ = cheerio.load(layout);
     $('body').html(template(data));
 
-    const browser = await puppeteer.launch({
-      executablePath: './bin/chrome-win/chrome.exe',
-      headless: true
-    });
+    let browser;
+    if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+      chrome = require('chrome-aws-lambda');
+      browser = await puppeteer.launch({
+        args: chrome.args,
+        defaultViewport: chrome.defaultViewport,
+        executablePath: await chrome.executablePath,
+        headless: true,
+        ignoreHTTPSErrors: true,
+      });
+    } else {
+      browser = await puppeteer.launch({
+        executablePath: './bin/chrome-win/chrome.exe', // TODO: Colocar no .env
+        headless: true,
+        ignoreHTTPSErrors: true,
+      }); 
+    }
+
     const page = await browser.newPage();
     await page.setViewport({ width: 1080, height: 1920 });
     await page.setContent($.html());
