@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const handlebars = require('handlebars');
 const cheerio = require('cheerio');
 const fs = require('fs');
@@ -39,23 +39,14 @@ module.exports = async function (fastify, options) {
     const $ = cheerio.load(layout);
     $('body').html(template(data));
 
-    let browser;
-    if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
-      chrome = require('chrome-aws-lambda');
-      browser = await puppeteer.launch({
-        args: chrome.args,
-        defaultViewport: chrome.defaultViewport,
-        executablePath: await chrome.executablePath,
-        headless: true,
-        ignoreHTTPSErrors: true,
-      });
-    } else {
-      browser = await puppeteer.launch({
-        executablePath: './bin/chrome-win/chrome.exe', // TODO: Colocar no .env
-        headless: true,
-        ignoreHTTPSErrors: true,
-      }); 
-    }
+    const browser = await puppeteer.launch({
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+      ],
+      headless: true,
+      ignoreHTTPSErrors: true,
+    }); 
 
     const page = await browser.newPage();
     await page.setViewport({ width: 1080, height: 1920 });
