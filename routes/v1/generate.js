@@ -41,8 +41,10 @@ module.exports = async function (fastify, options) {
 
     const browser = await puppeteer.launch({
       args: [
+        '--incognito',
         '--no-sandbox',
-        '--disable-setuid-sandbox',
+        '--single-process',
+        '--no-zygote'
       ],
       headless: true,
       ignoreHTTPSErrors: true,

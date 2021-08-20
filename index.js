@@ -22,7 +22,7 @@ const getFiles = require('./utils/getFiles');
   }
 
   try {
-    await fastify.listen(process.env.PORT || 5000, '0.0.0.0')
+    await fastify.listen(process.env.PORT || 5000, process.env.IP || '0.0.0.0')
   } catch (err) {
     fastify.log.error(err)
     process.exit(1)
