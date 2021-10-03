@@ -1,0 +1,24 @@
+{
+  "name": "musicwrap-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10",
+    "chrome-aws-lambda": "^10.1.0",
+    "dotenv": "^10.0.0",
+    "fastify": "^3.20.1",
+    "fastify-cors": "^6.0.2",
+    "handlebars": "^4.7.7",
+    "http-errors": "^1.8.0",
+    "puppeteer": "^10.2.0",
+    "puppeteer-core": "^10.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
