@@ -1,3 +1,6 @@
+# 👴 You're looking at old code.
+The ~~musicwrap.xyz~~ project was rebranded as **Semaninha**. It now uses a monolithic architecture and you can find [the current on-going project here](https://github.com/doceazedo/semaninha).
+
 <p align="center">
   <a href="https://musicwrap.xyz">
     <img src="./banner.jpg">
